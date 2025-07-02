@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FER with Gender Classification</title>
+
+   <style>
+    body {
+      background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      background-color: #4e73df;
+      color: white;
+      padding: 20px 0;
+      margin: 0;
+      font-size: 28px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .video-container {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .video-container img {
+      border: 6px solid #4e73df;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      max-width: 90%;
+      height: auto;
+    }
+  </style>
+  
+</head>
+<body>
+  <h1>FER with Gender Classification (Live)</h1>
+  <img src="{{ url_for('video_feed') }}" width="640" height="480">
+</body>
+</html>
