@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>FER with Gender Classification</title>
-
-   <style>
+  <style>
     body {
-      background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
       margin: 0;
       padding: 0;
@@ -14,31 +15,34 @@
 
     h1 {
       background-color: #4e73df;
-      color: white;
-      padding: 20px 0;
+      padding: 20px;
       margin: 0;
-      font-size: 28px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      font-size: 26px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
 
-    .video-container {
-      margin-top: 30px;
-      display: flex;
-      justify-content: center;
+    .container {
+      margin-top: 20px;
     }
 
-    .video-container img {
-      border: 6px solid #4e73df;
+    #video, #result {
+      border: 4px solid #4e73df;
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
       max-width: 90%;
       height: auto;
     }
   </style>
-  
 </head>
 <body>
-  <h1>FER with Gender Classification (Live)</h1>
-  <img src="{{ url_for('video_feed') }}" width="640" height="480">
+  <h1>FER with Gender Classification (Live Cloud)</h1>
+  <div class="container">
+    <video id="video" width="640" height="480" autoplay></video><br><br>
+    <img id="result" width="640" height="480"/>
+
+    <canvas id="canvas" style="display:none;"></canvas>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
