@@ -1,29 +1,25 @@
-from flask import Flask, render_template, Response
-import cv2
-from yolov11_model import detect_frame
+from flask import Flask, render_template, request, send_file
+from PIL import Image
+import base64, io
+from yolov11_model import detect_image
 
 app = Flask(__name__)
-cap = cv2.VideoCapture(0)  # Webcam
-
-def gen_frames():
-    while True:
-        success, frame = cap.read()
-        if not success:
-            break
-        else:
-            detected = detect_frame(frame)
-            _, buffer = cv2.imencode('.jpg', detected)
-            frame_bytes = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
 @app.route('/')
-def index():
+def home():
     return render_template('index.html')
 
-@app.route('/video_feed')
-def video_feed():
-    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/detect', methods=['POST'])
+def detect():
+    data = request.get_json()
+    image_data = base64.b64decode(data['image'].split(',')[1])
+    image = Image.open(io.BytesIO(image_data)).convert('RGB')
+
+    output_image = detect_image(image)
+    buf = io.BytesIO()
+    output_image.save(buf, format='JPEG')
+    buf.seek(0)
+    return send_file(buf, mimetype='image/jpeg')
 
 if __name__ == '__main__':
     app.run(debug=True)
